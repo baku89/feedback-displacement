@@ -75,7 +75,7 @@ gulp.task('browser-sync', () => {
 		server: {
 			baseDir: './public'
 		},
-		open: false
+		open: true
 	})
 })
 

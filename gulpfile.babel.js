@@ -45,13 +45,13 @@ gulp.task('webpack', () => {
 
 //==================================================
 
-gulp.task('jade', () => {
-	return gulp.src('./src/*.jade')
+gulp.task('pug', () => {
+	return gulp.src('./src/*.pug')
 		.pipe($.plumber())
 		.pipe($.data(() => {
-			return requireUncached('./src/jade/data.json')
+			return requireUncached('./src/pug/data.json')
 		}))
-		.pipe($.jade({pretty: developmentMode}))
+		.pipe($.pug({pretty: developmentMode}))
 		.pipe(gulp.dest('public'))
 		.pipe(browserSync.stream())
 })
@@ -82,7 +82,7 @@ gulp.task('browser-sync', () => {
 //==================================================
 gulp.task('watch', () => {
 	gulp.watch('./src/**/*.styl', ['stylus'])
-	gulp.watch(['./src/*.jade', './src/jade/*'], ['jade'])
+	gulp.watch(['./src/*.pug', './src/pug/*'], ['pug'])
 })
 
 //==================================================
@@ -110,11 +110,11 @@ gulp.task('deploy', () => {
 
 //==================================================
 
-gulp.task('default', ['webpack', 'jade', 'stylus', 'watch', 'browser-sync'])
+gulp.task('default', ['webpack', 'pug', 'stylus', 'watch', 'browser-sync'])
 gulp.task('build', () => {
 	runSequence(
 		'release',
-		['jade', 'stylus', 'webpack'],
+		['pug', 'stylus', 'webpack'],
 		'deploy'
 	)
 })

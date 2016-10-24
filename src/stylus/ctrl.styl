@@ -1,0 +1,348 @@
+$label-color=#cccccc
+$ui-color=#808080
+$ui-bg=#242424
+$ui-highlight=#999999
+$ui-dark = rgba(153, 153, 153, 0.1)
+$label-margin=4px
+
+$slider-height=24px
+
+value-style()
+	font-size 12px
+	color $ui-color
+	font-family 'Droid Sans Mono', monospace
+
+ctrl-transition()
+	transition all .1s ease
+
+//--------------------------------------------------
+// reset ctrl
+
+.ctrl
+
+	input, select, button
+		height 28px
+		display block
+		border 0
+		border-radius 0
+		background-color $ui-bg
+		line-height 1
+		text-align center
+		outline none !important
+		-webkit-appearance none
+		value-style()
+
+	normalize-size()
+		width 100%
+		height 100%
+		margin 0
+		padding 0
+		background transparent
+		color transparent
+		overflow visible
+		border 0
+
+	normalize-thumb()
+		width $sider-size
+		height $sider-size
+		border 0
+		border-radius 0
+		background transparent
+
+	input[type=range]
+		normalize-size()
+		opacity 0
+
+		&::-ms-track
+			normalize-size()
+
+		&::-moz-range-track
+			normalize-size()
+
+		&:focus::-webkit-slider-runnable-track
+				background transparent
+				border transparent
+
+		/* Make the thumbs the same size as your custom sliderthumb.
+		    they will not be visible but they will be draggable.    */
+		&::-ms-thumb,
+		&::-moz-range-thumb
+			normalize-thumb()
+
+		&::-webkit-slider-thumb
+			normalize-thumb()
+			-webkit-appearance none
+
+		/* microsoft IE10+ and Edge - eliminates default fills before and after thumb */
+		&::-ms-fill-lower,
+		&::-ms-fill-upper
+			background transparent
+			border 0 none
+
+		&::-ms-tooltip
+			display none
+
+//--------------------------------------------------
+// gui
+
+.ctrl
+	padding 0 10px
+	user-select none
+	cursor default
+
+.ctrl__component
+	margin-bottom 24px
+
+	label
+		display block
+		color $label-color
+		font-size 14px
+		letter-spacing .1em
+		margin-bottom 8px
+
+	.value
+		margin-right $label-margin
+		value-style()
+
+//--------------------------------------------------
+// dropdown
+
+.ctrl__dropdown
+
+	select
+		width 100%
+		text-align-last center
+
+//--------------------------------------------------
+// random
+
+.ctrl__random
+	.container
+		display flex
+		justify-content space-around
+		align-items stretch
+
+	input
+		width 100%
+
+	button
+		height 28px
+		overflow hidden
+		flex 0 0 24px
+		margin-right 3px
+		notext()
+		background-color transparent
+		background-image embedurl('./img/ctrl_reload.svg')
+		background-repeat no-repeat
+		background-size 16px 16px
+		background-position center right
+		opacity .6
+		cursor pointer
+		ctrl-transition()
+
+		&:hover
+			opacity 1
+
+//--------------------------------------------------
+// range
+
+.ctrl__range
+	.container
+		position relative
+		background-color $ui-bg
+		height $slider-height
+		overflow hidden
+
+	.fill
+		position absolute
+		top 0
+		left 0
+		width 100%
+		height 100%
+		transform-origin 0 0
+		background $ui-highlight
+		pointer-events none
+
+	.value
+		position absolute
+		top 0
+		right 0
+		line-height $slider-height
+
+//--------------------------------------------------
+// offset
+
+.ctrl__offset
+
+	.container
+		position relative
+		overflow hidden
+		background-color $ui-bg
+		height $slider-height
+
+	$gpos = 2.5%
+	$grid-grad = linear-gradient(90deg, transparent 50%, $ui-dark 50%, $ui-dark 52.5%, transparent 52.5%)
+
+	.grid
+		position absolute
+		top 0
+		left -100%
+		width 300%
+		height 100%
+		background-image $grid-grad
+		background-size 40px $slider-height
+		background-repeat repeat-x
+		background-position center center
+
+	.zero
+		position absolute
+		top 0
+		left 50%
+		width 1px
+		height 100%
+		background-color $ui-highlight
+
+	.value
+		position absolute
+		top 0
+		right 0
+		line-height $slider-height
+
+//--------------------------------------------------
+// angle
+
+.ctrl__angle
+
+	$diameter = 64px
+
+	.container
+		position relative
+
+	.knob
+		position relative
+		background-color $ui-bg
+		width $diameter
+		height $diameter
+		border-radius 50%
+		margin 0 auto
+		overflow hidden
+
+	.marker
+		position absolute
+		background-color $ui-highlight
+		width ($diameter / 3)
+		height 1px
+		top 50%
+		right 0
+		margin-top -1px
+
+	.value
+		position absolute
+		top 50%
+		right 0
+		margin-top -0.5em
+
+//--------------------------------------------------
+// range2d
+
+.ctrl__range2d
+
+	label
+		float left
+
+	.container
+		clear both
+		position relative
+		width 100%
+		height 0
+		padding-top 50%
+		background-color $ui-bg
+		overflow hidden
+
+	.pad
+		position absolute
+		left 0
+		top 0
+		width 100%
+		height 100%
+
+	.value
+		float right
+		margin-top 2px
+
+	.dot
+		position absolute
+		width 5px
+		height 5px
+		margin -2px 0 0 -2px
+		border-radius 50%
+		background-color $ui-highlight
+		pointer-events none
+
+	.axis-x, .axis-y
+		position absolute
+		background-color $ui-dark
+		pointer-events none
+
+	.axis-x
+		width 100%
+		height 1px
+		left 0
+
+	.axis-y
+		width 1px
+		height 100%
+		top 0
+
+//--------------------------------------------------
+// offset2d
+
+.ctrl__offset2d
+
+	label
+		float left
+
+	.container
+		clear both
+		position relative
+		width 100%
+		height 0
+		padding-top 50%
+		background-color $ui-bg
+		overflow hidden
+
+	$gpos = 2.5%
+	$grid-v-grad = linear-gradient(90deg, transparent 50%, $ui-dark 50%, $ui-dark 52.5%, transparent 52.5%)
+	$grid-h-grad = linear-gradient( 0deg, transparent 50%, $ui-dark 50%, $ui-dark 52.5%, transparent 52.5%)
+
+	.pad
+		position absolute
+		left -100%
+		top -100%
+		width 300%
+		height 300%
+		background-image $grid-v-grad, $grid-h-grad
+		background-size 40px 40px, 40px 40px
+		background-repeat repeat, repeat
+		background-position center center
+
+	.axis-x, .axis-y
+		position absolute
+		background-color $ui-highlight
+		pointer-events none
+
+	.axis-x
+		width 100%
+		height 1px
+		left 0
+		top 50%
+
+	.axis-y
+		width 1px
+		height 100%
+		top 0
+		left 50%
+
+	.value
+		float right
+		margin-top 2px

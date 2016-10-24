@@ -1,0 +1,27 @@
+doctype html
+html
+	head
+		include ./jade/_meta.jade
+
+	body(v-cloak)
+
+		.toolbar
+			h1.toolbar__title
+				| Feedback
+				br
+				| Displacement
+
+			.toolbar__control.ctrl
+
+				ctrl-dropdown(label='TYPE', v-bind:options='flowType')
+
+				ctrl-group(v-bind:params='uniformParams' v-on:change='updateUniforms')
+
+		.easel
+			.brush-cursor
+
+			.canvas-wrapper
+				canvas#canvas
+
+	script(src='./js/dat.gui.min.js')
+	script(src='./js/index.js')

@@ -20,12 +20,12 @@ class Ticker extends EventEmitter {
 	}
 
 	start() {
-		console.log('ticker start')
+		// console.log('ticker start')
 		this.update()
 	}
 
 	stop() {
-		console.log('ticker stop')
+		// console.log('ticker stop')
 		cancelAnimationFrame(this.requestId)
 		this.requestId = undefined
 	}

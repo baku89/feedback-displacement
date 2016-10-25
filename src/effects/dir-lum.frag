@@ -7,10 +7,23 @@ precision highp int;
 
 uniform sampler2D prevTexture;
 uniform sampler2D originalTexture;
+
+uniform float frequency;
+uniform float speed;
+uniform float seed;
+uniform float angle;
+uniform vec2 offset;
+
 uniform float aspect;
 
 varying vec2 uv;
 
+
 void main() {
-	gl_FragColor = texture2D(prevTexture, uv);
+
+	vec2 offset = vec2(cos(angle), sin(angle)) * speed;
+
+	vec4 c = texture2D(prevTexture, uv + offset);
+
+	gl_FragColor = c;
 }

@@ -79,7 +79,7 @@ Vue.component('ctrl-dropdown', {
 		<div class='ctrl__component ctrl__dropdown'>
 			<label>{{label}}</label>
 			<select>
-				<option v-for='option in options'>{{option}}</option>
+				<option v-for='option in options' :value='option.value'>{{option.label}}</option>
 			</select>
 		</div>`,
 	props: {

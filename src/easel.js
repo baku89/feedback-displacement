@@ -28,15 +28,15 @@ export default class Easel {
 		// init passes
 		this.displacePass = new DisplacePass()
 
-		this.displacePass.changeProgram(
-			require('./shaders/displace-pass.frag'),
-			{
-				frequency: {type: 'f', value: 0},
-				speed: {type: 'f', value: 0},
-				angle: {type: 'f', value: 0},
-				offset: {type: 'v2', value: new THREE.Vector2(0)}
-			}
-		)
+		// this.changeEffect(
+		// 	require('./shaders/displace-pass.frag'),
+		// 	{
+		// 		frequency: {type: 'f', value: 0},
+		// 		speed: {type: 'f', value: 0},
+		// 		angle: {type: 'f', value: 0},
+		// 		offset: {type: 'v2', value: new THREE.Vector2(0)}
+		// 	}
+		// )
 
 		new THREE.TextureLoader().load('./assets/sample.png', (tex) => {
 			this.displacePass.reset(tex)
@@ -72,14 +72,25 @@ export default class Easel {
 		this._setupKeybind()
 	}
 
+	changeEffect(fragmentShader, uniforms) {
+		this.displacePass.changeProgram(fragmentShader, uniforms)
+	}
+
 	updateUniforms(_uniforms) {
 		let uniforms = this.displacePass.uniforms
 
-		uniforms.frequency.value = _uniforms.frequency
-		uniforms.speed.value = _uniforms.speed
-		uniforms.angle.value = _uniforms.angle
-		uniforms.offset.value.x = _uniforms.offset.x
-		uniforms.offset.value.y = _uniforms.offset.y
+		for (let key in _uniforms) {
+			if (uniforms[key].type.search(/f|i/) != -1) {
+				uniforms[key].value = _uniforms[key].value
+			} else if (uniforms[key].type.search('v2') != -1) {
+				uniforms[key].value.x = _uniforms[key].value.x
+				uniforms[key].value.y = _uniforms[key].value.y
+			} else if (uniforms[key].type.search('v3') != -1) {
+				uniforms[key].value.x = _uniforms[key].value.x
+				uniforms[key].value.y = _uniforms[key].value.y
+				uniforms[key].value.z = _uniforms[key].value.z
+			}
+		}
 	}
 
 	//----------------------------------------
@@ -88,7 +99,7 @@ export default class Easel {
 	_update() {
 		this.displacePass.render()
 		this.renderPass.render()
-		console.log('update')
+		// console.log('update')
 	}
 
 	// init

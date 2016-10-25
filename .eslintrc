@@ -36,6 +36,7 @@
     "jQuery": true,
     "$": true,
     "Vue": true,
-    "THREE": true
+    "THREE": true,
+    "_": true
   }
 }

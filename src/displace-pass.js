@@ -12,8 +12,6 @@ export default class DisplacePass extends BasePass {
 
 	constructor() {
 
-		let fragmentShader = require('./shaders/displace-pass.frag')
-
 		let baseUniforms = {
 			originalTexture: {type: 't', value: null},
 			prevTexture: {type: 't', value: null},
@@ -21,13 +19,11 @@ export default class DisplacePass extends BasePass {
 		}
 
 		super({
-			fragmentShader,
+			fragmentShader: require('./shaders/displace-pass.frag'),
 			uniforms: baseUniforms
 		})
 
 		this.baseUniforms = baseUniforms
-
-		this.baseCode = fragmentShader
 
 		this.enableDisplace = false
 
@@ -46,8 +42,6 @@ export default class DisplacePass extends BasePass {
 	changeProgram(code, uniforms) {
 
 		this.uniforms = _.merge(this.baseUniforms, uniforms)
-
-		console.log(this.uniforms)
 
 		let mat = new THREE.RawShaderMaterial({
 			uniforms: this.uniforms,

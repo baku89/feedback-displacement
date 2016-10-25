@@ -24,14 +24,22 @@ class Commands extends EventEmitter {
 
 	_initDragDrop() {
 
-		dragDrop('body', (files) => {
-			console.log(files)
+		dragDrop('body', (files) => this._validateImageAndEmit('load-source', files))
+	}
 
-			if (files.length == 1 && files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
-				this.emit('load-source', files[0])
-			}
-		})
+	_validateImageAndEmit(eventName, files) {
+		if (files.length == 1 && files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+			this.emit(eventName, files[0])
+		} else {
+			console.log('failed')
+		}
+	}
 
+	// public
+	loadImage(eventName) {
+		$('#image-loader')
+			.on('change', (e) => this._validateImageAndEmit(eventName, e.target.files))
+			.trigger('click')
 	}
 
 	execute() {

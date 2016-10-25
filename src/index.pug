@@ -5,6 +5,8 @@ html
 
 	body(v-cloak)
 
+		input#image-loader(type='file')
+
 		.drag-over(v-bind:class='{show: ui.showDragOver}')
 			.drag-over__text Drag Images to Load
 
@@ -37,5 +39,5 @@ html
 
 			.canvas-wrapper
 				canvas#canvas
-					
+
 	script(src='./js/index.js')

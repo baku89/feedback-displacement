@@ -5,11 +5,10 @@ const $ = require('gulp-load-plugins')()
 const webpack = require('webpack')
 const WebpackStream = require('webpack-stream')
 const BrowserSync = require('browser-sync')
-// const ftp = require('vinyl-ftp')
+const ftp = require('vinyl-ftp')
 const runSequence = require('run-sequence')
 const browserSync = BrowserSync.create()
 
-// import ftpConfig from './ftp.config.js'
 
 let developmentMode = true
 
@@ -99,13 +98,15 @@ gulp.task('release', () => {
 //==================================================
 gulp.task('deploy', () => {
 
-	// let conn = ftp.create(ftpConfig)
-	//
-	// let globs = ['./public/**']
-	//
-	// return gulp.src(globs, {base: './public', buffer: false})
-	// 	.pipe( conn.newer(ftpConfig.remotePath) )
-	// 	.pipe( conn.dest(ftpConfig.remotePath) )
+	const ftpConfig = require('./ftp.config.js')
+
+	let conn = ftp.create(ftpConfig)
+
+	let globs = ['./public/**']
+
+	return gulp.src(globs, {base: './public', buffer: false})
+		.pipe( conn.newer(ftpConfig.remotePath) )
+		.pipe( conn.dest(ftpConfig.remotePath) )
 })
 
 //==================================================

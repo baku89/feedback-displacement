@@ -12,7 +12,6 @@ const browserSync = BrowserSync.create()
 import ftpConfig from './ftp.config.js'
 
 let developmentMode = true
-let isDeployRoot = process.argv[3] == '-r'
 
 process.env.NODE_ENV = 'dev'
 
@@ -58,7 +57,7 @@ gulp.task('pug', () => {
 
 //==================================================
 gulp.task('stylus', () => {
-	return gulp.src('./src/stylus/*.styl')
+	return gulp.src('./src/stylus/style.styl')
 		.pipe($.plumber())
 		.pipe($.stylus({use: [require('nib')()]}))
 		.pipe($.autoprefixer())
@@ -67,7 +66,6 @@ gulp.task('stylus', () => {
 		.pipe(gulp.dest('public/css'))
 		.pipe(browserSync.stream())
 })
-
 
 //==================================================
 gulp.task('browser-sync', () => {
@@ -94,18 +92,13 @@ gulp.task('release', () => {
 //==================================================
 gulp.task('deploy', () => {
 
-	if (isDeployRoot) {
-		$.util.log('Upload to root directory')
-	}
-
 	let conn = ftp.create(ftpConfig)
 
 	let globs = ['./public/**']
-	let remotePath = isDeployRoot ? '/ins-stud.io/public_html' : '/ins-stud.io/public_html/studio'
 
 	return gulp.src(globs, {base: './public', buffer: false})
-		.pipe( conn.newer(remotePath) )
-		.pipe( conn.dest(remotePath) )
+		.pipe( conn.newer(ftpConfig.remotePath) )
+		.pipe( conn.dest(ftpConfig.remotePath) )
 })
 
 //==================================================

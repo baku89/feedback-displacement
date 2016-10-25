@@ -55,10 +55,10 @@ export default class App extends Vue {
 			let p = this.params[key]
 			let type, value
 
-			if (p.type == 'range' || p.type == 'offset' || p.type == 'angle' || p.type == 'random') {
+			if (p.type.search(/range|offset|angle|random/) != -1) {
 				type = 'f'
 				value = p.value
-			} else if (p.type == 'range2d' || p.type == 'offset2d') {
+			} else if (p.type.search(/range2d|offset2d/) != -1) {
 				type = 'v2'
 				value = new THREE.Vector2(p.value.x, p.value.y)
 			}

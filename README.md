@@ -1,6 +1,12 @@
 # Feedback Displacement
 
-## Install
+## Requirements
+
+ - node.js
+ - npm
+ - gulp (`npm -g install gulp`)
+
+## Setup
 
 ```
 npm install

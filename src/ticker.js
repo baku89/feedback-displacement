@@ -9,6 +9,7 @@ class Ticker extends EventEmitter {
 		this.update = this.update.bind(this)
 		this.prev = 0
 		this.now = 0
+		this.frame = 0
 	}
 
 	togglePlay() {
@@ -30,7 +31,12 @@ class Ticker extends EventEmitter {
 		this.requestId = undefined
 	}
 
+	reset() {
+		this.frame = 0
+	}
+
 	update() {
+		this.frame++
 		this.requestId = requestAnimationFrame(this.update)
 		this.emit('update')
 	}

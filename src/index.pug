@@ -18,6 +18,8 @@ html
 					select(v-model='currentEffect' v-on:change='changeEffect()')
 						option(v-for='effect in effects' v-bind:value='effect.value') {{effect.label}}
 
+				hr
+
 				ctrl-group(v-bind:params='params' v-on:change='updateUniforms')
 
 		.easel

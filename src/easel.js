@@ -28,17 +28,7 @@ export default class Easel {
 		// init passes
 		this.displacePass = new DisplacePass()
 
-		// this.changeEffect(
-		// 	require('./shaders/displace-pass.frag'),
-		// 	{
-		// 		frequency: {type: 'f', value: 0},
-		// 		speed: {type: 'f', value: 0},
-		// 		angle: {type: 'f', value: 0},
-		// 		offset: {type: 'v2', value: new THREE.Vector2(0)}
-		// 	}
-		// )
-
-		new THREE.TextureLoader().load('./assets/sample.png', (tex) => {
+		new THREE.TextureLoader().load('./assets/default.jpg', (tex) => {
 			this.displacePass.reset(tex)
 			this._update()
 		})
@@ -106,6 +96,7 @@ export default class Easel {
 	_setupKeybind() {
 		Mousetrap.bind('esc', () => {
 			this.displacePass.reset()
+			Ticker.reset()
 			this._update()
 		})
 
@@ -159,7 +150,7 @@ export default class Easel {
 
 	saveAsImage() {
 		this.$canvas[0].toBlob((blob) => {
-			FileSaver.saveAs(blob, 'image.png')
+			FileSaver.saveAs(blob, `image${Ticker.frame}.png`)
 		})
 	}
 

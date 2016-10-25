@@ -3,7 +3,7 @@ export default {
 		label: 'Polar Perlin',
 		params: {
 			frequency: {type: 'range', label: 'FREQUENCY', value: 2, min: 0, max: 10},
-			speed: {type: 'range', label: 'SPEED', value: 0.001, min: 0, max: 0.1},
+			speed: {type: 'range', label: 'SPEED', value: 0.001, min: 0, max: 0.01},
 			angle: {type: 'angle', label: 'ANGLE', value: 0},
 			offset: {type: 'offset2d', label: 'OFFSET', value: {x: 0, y: 0}}
 		},
@@ -12,7 +12,8 @@ export default {
 	'dir-lum': {
 		label: 'Dir Lum',
 		params: {
-			angle: {type: 'angle', label: 'ANGLE', value: 0}
+			angle: {type: 'angle', label: 'ANGLE', value: 0},
+			speed: {type: 'range', label: 'ANGLE', value: 0, min: 0.001, max: 0.01}
 		},
 		fragmentShader: require('./dir-lum.frag')
 	}

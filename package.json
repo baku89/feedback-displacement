@@ -65,6 +65,7 @@
     "vinyl-ftp": "^0.4.5",
     "vue": "^1.0.28",
     "vue-async-data": "^1.0.2",
+    "vue-localstorage": "^0.1.1",
     "webpack": "^1.13.0",
     "webpack-stream": "^3.1.0"
   }

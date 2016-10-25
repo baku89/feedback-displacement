@@ -5,6 +5,9 @@ html
 
 	body(v-cloak)
 
+		.drag-over(v-bind:class='{show: ui.showDragOver}')
+			.drag-over__text Drag Images to Load
+
 		.toolbar
 			h1.toolbar__title
 				| Feedback

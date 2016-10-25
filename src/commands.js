@@ -1,5 +1,6 @@
 import EventEmitter from 'eventemitter3'
 import Mousetrap from 'mousetrap'
+import dragDrop from 'drag-drop'
 
 class Commands extends EventEmitter {
 
@@ -7,6 +8,7 @@ class Commands extends EventEmitter {
 		super()
 
 		this._initKeybind()
+		this._initDragDrop()
 	}
 
 	_initKeybind() {
@@ -20,8 +22,20 @@ class Commands extends EventEmitter {
 		})
 	}
 
-	execute(name) {
-		this.emit(name)
+	_initDragDrop() {
+
+		dragDrop('body', (files) => {
+			console.log(files)
+
+			if (files.length == 1 && files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+				this.emit('load-source', files[0])
+			}
+		})
+
+	}
+
+	execute() {
+		this.emit(...arguments)
 	}
 }
 

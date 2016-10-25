@@ -27,11 +27,6 @@ export default class Easel {
 		// init passes
 		this.displacePass = new DisplacePass()
 
-		new THREE.TextureLoader().load('./assets/default.jpg', (tex) => {
-			this.displacePass.reset(tex)
-			this._update()
-		})
-
 		this.renderPass = new BasePass({
 			fragmentShader: require('./shaders/render-pass.frag'),
 			uniforms: {
@@ -40,6 +35,8 @@ export default class Easel {
 		})
 
 		this._setResolution(1024, 1024)
+
+		this.textureLoader = new THREE.TextureLoader()
 
 		Ticker.on('update', this._update.bind(this))
 		this._update()
@@ -67,6 +64,8 @@ export default class Easel {
 		window.Commands.on('save-canvas', () => {
 			this.saveAsImage()
 		})
+
+		window.Commands.on('load-source', this._loadSource.bind(this))
 	}
 
 	changeEffect(fragmentShader, uniforms) {
@@ -92,6 +91,40 @@ export default class Easel {
 
 	//----------------------------------------
 	// private
+
+	_loadSource(src) {
+
+		if (typeof src == 'string') {
+
+			this._setSourceURL(src)
+
+		} else {
+			console.log('detected as file')
+
+			let reader = new FileReader()
+
+			reader.addEventListener('load', () => {
+				console.log('loaded!!!!')
+				this._setSourceURL(reader.result)
+			})
+
+			reader.readAsDataURL(src)
+		}
+	}
+
+	_setSourceURL(url) {
+		let img = new Image()
+		img.src = url
+		img.onload = () => {
+			this.textureLoader.load(url, (tex) => {
+				Ticker.reset()
+				this._setResolution(img.width, img.height)
+				this.displacePass.reset(tex)
+				this._update()
+			})
+		}
+
+	}
 
 	_update() {
 		this.displacePass.render()
@@ -132,6 +165,8 @@ export default class Easel {
 		this.height = h
 		this.displacePass.setSize(this.width, this.height)
 		window.renderer.setSize(this.width, this.height)
+
+		this._updateTransform()
 	}
 
 	//----------------------------------------

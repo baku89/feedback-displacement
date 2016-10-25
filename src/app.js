@@ -16,7 +16,9 @@ export default class App extends Vue {
 			data: {
 				effects: _.map(Effects, (e, key) => {return {label: e.label, value: key}}),
 				currentEffect: 'polar-perlin',
-				params: {}
+				params: {},
+				ui: {
+				}
 			}
 		})
 
@@ -25,12 +27,7 @@ export default class App extends Vue {
 		this.changeEffect = this.changeEffect.bind(this)
 		this.changeEffect()
 
-		/*
-		this.imageLoader = new ImageLoader()
-		this.imageLoader.on('load', (texture) => {
-			this.canvas.resetByTexture(texture)
-		})
-		*/
+		window.Commands.execute('load-source', './assets/default.jpg')
 	}
 
 	updateUniforms() {

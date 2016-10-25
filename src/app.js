@@ -1,14 +1,10 @@
-import VueAsyncData from 'vue-async-data'
 import VueLocalStorage from 'vue-localstorage'
 
-Vue.use(VueAsyncData)
 Vue.use(VueLocalStorage)
 
 import Easel from './easel'
-import ImageLoader from './image-loader'
 
 import './commands'
-import './directives'
 import './ctrl'
 
 export default class App extends Vue {
@@ -51,11 +47,19 @@ export default class App extends Vue {
 			console.log('load effect')
 			this.changeEffect()
 
+			let defaultParams = this.effectsData[this.currentEffect].params
+			let savedParams = this.$localStorage.get('currentParams')
 
-			// let defaultParams = this.effectsData[this.currentEffect].params
-			// let savedParams = this.$localStorage.get('currentParams')
+			let params = {}
 
-			// this.$set('params', _.merge(defaultParams, savedParams))
+			for (let key in defaultParams) {
+				params[key] = defaultParams[key]
+				if (key in savedParams && defaultParams[key].type == savedParams[key].type) {
+					params[key].value = savedParams[key].value
+				}
+			}
+
+			this.$set('params', params)
 		})
 	}
 
@@ -81,10 +85,10 @@ export default class App extends Vue {
 			let p = this.params[key]
 			let type, value
 
-			if (p.type.search(/range|offset|angle|random/) != -1) {
+			if (p.type.search(/slider|offset|angle|random/) != -1) {
 				type = 'f'
 				value = p.value
-			} else if (p.type.search(/hanni|range2d|offset2d/) != -1) {
+			} else if (p.type.search(/slider2d|offset2d/) != -1) {
 				type = 'v2'
 				value = new THREE.Vector2(p.value.x, p.value.y)
 			}

@@ -14,12 +14,20 @@ class Commands extends EventEmitter {
 	_initKeybind() {
 		Mousetrap.bind('esc', () => {
 			this.emit('reset-canvas')
+			return false
 		})
 
 		Mousetrap.bind('command+s', () => {
 			this.emit('save-canvas')
 			return false
 		})
+
+		Mousetrap.bind('command+1', () => {
+			this.emit('reload-effects')
+			return false
+		})
+
+
 	}
 
 	_initDragDrop() {

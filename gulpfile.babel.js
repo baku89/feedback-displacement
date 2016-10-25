@@ -115,7 +115,6 @@ gulp.task('default', ['webpack', 'pug', 'stylus', 'watch', 'compile-effects', 'b
 gulp.task('build', () => {
 	runSequence(
 		'release',
-		['pug', 'stylus', 'webpack'],
-		'deploy'
+		['pug', 'stylus', 'webpack']
 	)
 })

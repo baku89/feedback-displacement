@@ -12,8 +12,7 @@ uniform-centerize()
 
 global-reset()
 
-
-
+@import './form-reset'
 
 //--------------------------------------------------
 *, ::after, ::before
@@ -56,12 +55,15 @@ $toolbar-width = 240px
 
 .toolbar
 	position absolute
+	display flex
+	flex-direction column
 	top 0
 	left 0
 	width $toolbar-width
 	height 100%
 	color #ccc
 	background #1a1a1a
+	user-select none
 
 .toolbar__title
 	margin 0 1rem 0
@@ -70,6 +72,9 @@ $toolbar-width = 240px
 	line-height 1.3
 	font-size 2rem
 	margin-bottom 1.5rem
+
+.toolbar__control
+	flex-grow 2
 
 @import './ctrl.styl'
 

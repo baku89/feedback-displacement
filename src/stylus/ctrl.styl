@@ -355,3 +355,32 @@ ctrl-transition()
 		border 0
 		border-top 1px solid $ui-dark
 		margin-bottom 24px
+
+//--------------------------------------------------
+// menu
+
+.toolbar__menu
+	margin-bottom 12px
+
+	ul
+		display flex
+		justify-content center
+
+	button
+		-webkit-appearance none
+		border 1px solid $label-color
+		background-color transparent
+		text-align center
+		color $label-color
+		font-size 11px
+		letter-spacing: .1em
+		width 54px
+		height 54px
+		border-radius 50%
+		margin 0 10px
+		cursor pointer
+		transition all .15s ease
+
+		&:hover
+			background-color $label-color
+			color $ui-bg

@@ -1,5 +1,4 @@
 import 'jquery.transit'
-import Mousetrap from 'mousetrap'
 import FileSaver from 'filesaverjs'
 
 import DisplacePass from './displace-pass'
@@ -59,7 +58,15 @@ export default class Easel {
 			'mousemove': this._moveCursor.bind(this)
 		})
 
-		this._setupKeybind()
+		window.Commands.on('reset-canvas', () => {
+			this.displacePass.reset()
+			Ticker.reset()
+			this._update()
+		})
+
+		window.Commands.on('save-canvas', () => {
+			this.saveAsImage()
+		})
 	}
 
 	changeEffect(fragmentShader, uniforms) {
@@ -90,20 +97,6 @@ export default class Easel {
 		this.displacePass.render()
 		this.renderPass.render()
 		// console.log('update')
-	}
-
-	// init
-	_setupKeybind() {
-		Mousetrap.bind('esc', () => {
-			this.displacePass.reset()
-			Ticker.reset()
-			this._update()
-		})
-
-		Mousetrap.bind('command+s', () => {
-			this.saveAsImage()
-			return false
-		})
 	}
 
 	// event

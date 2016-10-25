@@ -22,11 +22,19 @@ html
 
 				ctrl-group(v-bind:params='params' v-on:change='updateUniforms')
 
+			.toolbar__menu
+				ul
+					li: button(v-on:click='onClickLoad') LOAD
+					li: button(v-on:click='onClickSave') SAVE
+					li: button(v-on:click='onClickReset') RESET
+
+
 		.easel
 			.brush-cursor
 
 			.canvas-wrapper
 				canvas#canvas
+
 
 	script(src='./js/dat.gui.min.js')
 	script(src='./js/index.js')

@@ -13,10 +13,7 @@ export default class App extends Vue {
 		super({
 			el: 'body',
 			data: {
-				effects: [
-					{label: 'Polar Perlin', value:'polar-perlin'},
-					{label: 'Dir Lum', value:'dir-lum'}
-				],
+				effects: _.map(Effects, (e, key) => {return {label: e.label, value: key}}),
 				currentEffect: 'polar-perlin',
 				params: {}
 			}
@@ -43,7 +40,7 @@ export default class App extends Vue {
 	}
 
 	changeEffect() {
-		console.log('change effect:', this, this.currentEffect)
+		console.log('change effect:', this.currentEffect)
 
 		let effect = Effects[this.currentEffect]
 

@@ -24,6 +24,8 @@
     "exports-loader": "^0.6.3",
     "file-loader": "^0.8.5",
     "filesaverjs": "^0.2.2",
+    "generate-json-webpack-plugin": "^0.2.1",
+    "glob": "^7.1.1",
     "glsl-noise": "0.0.0",
     "glsl-pi": "^1.0.0",
     "glslify": "^5.1.0",
@@ -62,6 +64,7 @@
     "three": "^0.78.0",
     "vinyl-ftp": "^0.4.5",
     "vue": "^1.0.28",
+    "vue-async-data": "^1.0.2",
     "webpack": "^1.13.0",
     "webpack-stream": "^3.1.0"
   }

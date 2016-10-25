@@ -1,12 +1,13 @@
+import VueAsyncData from 'vue-async-data'
+
+Vue.use(VueAsyncData)
+
 import Easel from './easel'
 import ImageLoader from './image-loader'
-
-import Effects from './effects'
 
 import './commands'
 import './directives'
 import './ctrl'
-
 
 export default class App extends Vue {
 
@@ -14,18 +15,30 @@ export default class App extends Vue {
 		super({
 			el: 'body',
 			data: {
-				effects: _.map(Effects, (e, key) => {return {label: e.label, value: key}}),
+				effects: [],
 				currentEffect: 'polar-perlin',
 				params: {},
 				ui: {
 				}
+			},
+			asyncData: (resolve, reject) => {
+				
+				$.getJSON('./assets/effects.json', (data) => {
+					this.effectsData = data
+
+					resolve({
+						effects: _.map(this.effectsData, (e, key) => { return{label: e.label, value: key}}),
+						currentEffect: 'polar-perlin'
+					})
+
+					this.changeEffect()
+				})
 			}
 		})
 
 		this.easel = new Easel()
 
 		this.changeEffect = this.changeEffect.bind(this)
-		this.changeEffect()
 
 		window.Commands.execute('load-source', './assets/default.jpg')
 	}
@@ -40,7 +53,7 @@ export default class App extends Vue {
 	changeEffect() {
 		console.log('change effect:', this.currentEffect)
 
-		let effect = Effects[this.currentEffect]
+		let effect = this.effectsData[this.currentEffect]
 
 		this.$set('params', effect.params)
 

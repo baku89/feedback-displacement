@@ -2,6 +2,7 @@ node_modules
 ftp.config.js
 
 public/index.html
+public/assets/effects.json
 public/css
 public/js/index.js
 

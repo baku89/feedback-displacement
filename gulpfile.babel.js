@@ -43,6 +43,12 @@ gulp.task('webpack', () => {
 })
 
 //==================================================
+gulp.task('compile-effects', () => {
+	return gulp.src('')
+		.pipe($.shell(['node ./output-effects.js']))
+})
+
+//==================================================
 
 gulp.task('pug', () => {
 	return gulp.src('./src/*.pug')
@@ -81,6 +87,7 @@ gulp.task('browser-sync', () => {
 gulp.task('watch', () => {
 	gulp.watch('./src/**/*.styl', ['stylus'])
 	gulp.watch(['./src/*.pug', './src/pug/*'], ['pug'])
+	gulp.watch(['./src/effects/**/*'], ['compile-effects'])
 })
 
 //==================================================

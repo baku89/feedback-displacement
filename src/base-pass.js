@@ -40,7 +40,7 @@ export default class BasePass {
 			])
 
 			geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3))
-			geometry.addAttribute('uUv', new THREE.BufferAttribute(uvs, 2))
+			geometry.addAttribute('vUv', new THREE.BufferAttribute(uvs, 2))
 		}
 
 		this._mesh = new THREE.Mesh(geometry, this._material)

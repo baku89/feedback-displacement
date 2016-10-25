@@ -16,7 +16,6 @@ export default {
 		params: {
 			frequency: {type: 'range', label: 'FREQUENCY', value: 1, min: 0, max: 4},
 			speed: {type: 'range', label: 'SPEED', value: 0.002, min: 0, max: 0.01},
-			angle: {type: 'angle', label: 'ANGLE', value: 0},
 			seed: {type: 'random', label: 'SEED', value: 0}
 		},
 		fragmentShader: require('./hair-whorl.frag')

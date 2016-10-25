@@ -17,11 +17,11 @@ uniform vec2 offset;
 uniform float aspect;
 
 varying vec2 uv;
-
+varying vec2 pos;
 
 void main() {
 
-	vec2 perlin = uv * frequency + offset;
+	vec2 perlin = pos * frequency + offset;
 	float dispAngle = snoise2(perlin) * 2.0 * PI + angle;
 
 	// float brightness = (i.r + i.b + i.g) / 3.0;

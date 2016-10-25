@@ -3,7 +3,7 @@ export default {
 	'polar-perlin': {
 		label: 'Polar Perlin',
 		params: {
-			frequency: {type: 'range', label: 'FREQUENCY', value: 2, min: 0, max: 10},
+			frequency: {type: 'range', label: 'FREQUENCY', value: 1, min: 0, max: 5},
 			speed: {type: 'range', label: 'SPEED', value: 0.002, min: 0, max: 0.01},
 			angle: {type: 'angle', label: 'ANGLE', value: 0},
 			offset: {type: 'offset2d', label: 'OFFSET', value: {x: 0, y: 0}}

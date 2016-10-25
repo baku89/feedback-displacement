@@ -3,6 +3,7 @@ import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
 import Easel from './easel'
+import TransformUniforms from './transform-uniforms.js'
 
 import './commands'
 import './ctrl'
@@ -79,26 +80,8 @@ export default class App extends Vue {
 		this.$set('params', effect.params)
 		this.$localStorage.set('currentEffect', this.currentEffect)
 
-		let uniforms = {}
-
-		for (let key in this.params) {
-			let p = this.params[key]
-			let type, value
-
-			if (p.type.search(/slider|offset|angle|random/) != -1) {
-				type = 'f'
-				value = p.value
-			} else if (p.type.search(/slider2d|offset2d/) != -1) {
-				type = 'v2'
-				value = new THREE.Vector2(p.value.x, p.value.y)
-			}
-
-			uniforms[key] = {type, value}
-		}
-
-		this.uniforms = uniforms
-
-		this.easel.changeEffect(effect.fragmentShader, uniforms)
+		this.uniforms = TransformUniforms(this.params)
+		this.easel.changeEffect(effect.fragmentShader, this.uniforms)
 	}
 
 	// events

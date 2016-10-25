@@ -6,26 +6,26 @@ meta(name='viewport' content='width=device-width,initial-scale=1.0')
 meta(http-equiv='Content-Style-Type' content='text/css')
 meta(http-equiv='Content-Script-Type' content='text/javascript')
 
-meta(name='keywords' lang='en' xml:lang='en' content='#{keywords}')
-meta(name='description' lang='en' xml:lang='en' content='#{description}')
+meta(name='keywords' lang='en' xml:lang='en' content=`${keywords}`)
+meta(name='description' lang='en' xml:lang='en' content=`${description}`)
 
 //- Facebook OG
-meta(property='og:title' content='#{title}')
+meta(property='og:title' content=`${title}`)
 meta(property='og:type' content='website')
-meta(property='og:description' content='#{description}')
-meta(property='og:url' content='#{url}')
-meta(property='og:image' content='#{url}/img/ogp.png')
+meta(property='og:description' content=`${description}`)
+meta(property='og:url' content=`${url}`)
+meta(property='og:image' content=`${url}/assets/ogp.jpg`)
 meta(property='og:image:width' content='1200')
 meta(property='og:image:height' content='630')
-meta(property='og:site_name' content='#{title}')
+meta(property='og:site_name' content=`${title}`)
 meta(property='og:locale' content='en_US')
 
 //- Twitter Cards
 meta(name='twitter:card' content='summary_large_image')
-meta(name='twitter:site' content='#{url}')
-meta(name='twitter:title' content='#{title}')
-meta(name='twitter:description' content='#{description}')
-meta(name='twitter:image:src' content='#{url}/img/ogp.png')
+meta(name='twitter:site' content=`${url}`)
+meta(name='twitter:title' content=`${title}`)
+meta(name='twitter:description' content=`${description}`)
+meta(name='twitter:image:src' content=`${url}/assets/ogp.jpg`)
 
 title #{title}
 

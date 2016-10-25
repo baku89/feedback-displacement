@@ -6,16 +6,14 @@ precision highp int;
 
 uniform sampler2D prevTexture;
 uniform sampler2D originalTexture;
+uniform float aspect;
+varying vec2 uv;
+varying vec2 pos;
 
 uniform float frequency;
 uniform float speed;
 uniform float seed;
 uniform float angle;
-
-uniform float aspect;
-
-varying vec2 uv;
-varying vec2 pos;
 
 vec2 perlin2(vec2 pos) {
 	return vec2(snoise2(pos), snoise2(pos + vec2(100.0)));

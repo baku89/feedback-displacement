@@ -56,9 +56,9 @@ export default class Easel {
 		})
 
 		window.Commands.on('reset-canvas', () => {
-			this.displacePass.reset()
 			Ticker.reset()
-			this._update()
+			this.displacePass.reset()
+			this.renderPass.render()
 		})
 
 		window.Commands.on('save-canvas', () => {
@@ -67,6 +67,9 @@ export default class Easel {
 
 		window.Commands.on('load-source', this._loadSource.bind(this))
 	}
+
+	//----------------------------------------
+	// public
 
 	changeEffect(fragmentShader, uniforms) {
 		this.displacePass.changeProgram(fragmentShader, uniforms)
@@ -120,7 +123,7 @@ export default class Easel {
 				Ticker.reset()
 				this._setResolution(img.width, img.height)
 				this.displacePass.reset(tex)
-				this._update()
+				this.renderPass.render()
 			})
 		}
 
@@ -129,24 +132,6 @@ export default class Easel {
 	_update() {
 		this.displacePass.render()
 		this.renderPass.render()
-		// console.log('update')
-	}
-
-	// event
-
-	_showCursor() {
-		this.$cursor.addClass('show')
-	}
-
-	_hideCursor() {
-		this.$cursor.removeClass('show')
-	}
-
-	_moveCursor(e) {
-		this.$cursor.css({
-			x: e.pageX - this.$easel[0].offsetLeft,
-			y: e.pageY - this.$easel[0].offsetTop
-		})
 	}
 
 	_updateTransform() {
@@ -167,6 +152,24 @@ export default class Easel {
 		window.renderer.setSize(this.width, this.height)
 
 		this._updateTransform()
+	}
+
+	//----------------------------------------
+	// event
+
+	_showCursor() {
+		this.$cursor.addClass('show')
+	}
+
+	_hideCursor() {
+		this.$cursor.removeClass('show')
+	}
+
+	_moveCursor(e) {
+		this.$cursor.css({
+			x: e.pageX - this.$easel[0].offsetLeft,
+			y: e.pageY - this.$easel[0].offsetTop
+		})
 	}
 
 	//----------------------------------------

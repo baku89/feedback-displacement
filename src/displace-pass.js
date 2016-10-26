@@ -63,6 +63,7 @@ export default class DisplacePass extends BasePass {
 		super.render(this.currentRenderTarget)
 
 		this.texture = this.currentRenderTarget.texture
+		console.log('disp update')
 	}
 
 	reset(tex) {
@@ -71,11 +72,12 @@ export default class DisplacePass extends BasePass {
 			this.originalTexture = tex
 			this.uniforms.originalTexture.value =tex
 		}
-
 		this.passthruPass.uniforms.texture.value = this.originalTexture
 		this.passthruPass.render(this.currentRenderTarget)
+		this.passthruPass.render(this.prevRenderTarget)
 
 		this.texture = this.currentRenderTarget.texture
+		console.log('disp reset')
 	}
 
 	setSize(w, h) {

@@ -2,8 +2,8 @@ precision highp float;
 precision highp int;
 
 #pragma glslify: snoise2 = require(glsl-noise/simplex/2d)
-#pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
 #pragma glslify: PI = require(glsl-pi)
+#pragma glslify: random = require(glsl-random)
 
 uniform sampler2D prevTexture;
 uniform sampler2D originalTexture;
@@ -11,25 +11,42 @@ uniform sampler2D originalTexture;
 uniform float frequency;
 uniform float speed;
 uniform float seed;
-uniform float angle;
-uniform vec2 offset;
 
 uniform float aspect;
 
 varying vec2 uv;
 varying vec2 pos;
 
+vec2 random2(float seed) {
+	return vec2(
+		random(vec2(seed, 0.0)),
+		random(vec2(seed + 123.0, 0.0))
+		);
+}
+
+float random1(float seed) {
+	return random(vec2(seed * 431.34, 0.0));
+}
+
+vec2 base(float angle) {
+	return vec2(cos(angle), sin(angle));
+}
+
+float brightness(vec4 color) {
+	return (color.r + color.g + color.b) / 3.0;
+}
+
 void main() {
 
-	vec2 perlin = pos * frequency + offset;
-	float dispAngle = snoise2(perlin) * 2.0 * PI + angle;
+	vec4 oc = texture2D(originalTexture, uv);
 
-	// float brightness = (i.r + i.b + i.g) / 3.0;
-	// float amp = mix(0.0, 0.5, brightness);
+	vec2 perlinSeed = pos * frequency + random2(seed);
+	float angle = snoise2(perlinSeed) * 2.0 * PI + random1(seed);
 
-	vec2 offset = vec2(cos(dispAngle), sin(dispAngle)) * speed;
+	float bri = brightness(oc);
+	float amp = mix(0.5, 1.9, bri);
 
-	vec4 c = texture2D(prevTexture, uv + offset);
+	vec2 offset = base(angle) * speed * amp;
 
-	gl_FragColor = c;
+	gl_FragColor = texture2D(prevTexture, uv + offset);
 }

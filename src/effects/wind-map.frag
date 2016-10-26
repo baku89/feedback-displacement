@@ -10,6 +10,7 @@ uniform sampler2D originalTexture;
 uniform float frequency;
 uniform float fineness;
 uniform float speed;
+uniform float angle;
 uniform float seed;
 
 uniform float aspect;
@@ -31,9 +32,7 @@ void main() {
 
 	float angleWiggle = snoise2( (pos + seed) * frequency ) * PI * 2.0;
 
-	float angle = seed * 1421.21;
-
-	float flowAngle = angleWiggle + (cos(angle) * pos.y - sin(angle) * pos.x) * fineness;
+	float flowAngle = angle + angleWiggle * fineness;
 
 	float amp = brightness(color) * speed;
 

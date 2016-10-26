@@ -61,6 +61,7 @@ export default class App extends Vue {
 			}
 
 			this.$set('params', params)
+			this.updateUniforms()
 		})
 	}
 

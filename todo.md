@@ -6,7 +6,6 @@
  - Enable to edit Shader in browser
  - Enable to share shader (via URL, via JSON)
  - Make 'range' control and rename existing one with 'slider'
- - Fix 'reset' bug
  - Enable to execute displacement by step
 
 ## Low

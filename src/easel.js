@@ -57,6 +57,7 @@ export default class Easel {
 
 		window.Commands.on('reset-canvas', () => {
 			Ticker.reset()
+			Ticker.stop()
 			this.displacePass.reset()
 			this.renderPass.render()
 		})

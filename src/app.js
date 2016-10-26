@@ -1,4 +1,5 @@
 import VueLocalStorage from 'vue-localstorage'
+import queryString from 'query-string'
 
 Vue.use(VueLocalStorage)
 
@@ -44,8 +45,14 @@ export default class App extends Vue {
 			let effectsList = _.map(this.effectsData, (e, key) => { return{label: e.label, value: key}})
 			this.$set('effects', effectsList)
 
-			this.currentEffect = this.$localStorage.get('currentEffect')
-			console.log('load effect')
+			let query = queryString.parse(window.location.search)
+			console.log(query)
+			if (query.type && query.type in this.effectsData) {
+				this.currentEffect = query.type
+			} else {
+				this.currentEffect = this.$localStorage.get('currentEffect')
+			}
+
 			this.changeEffect()
 
 			let defaultParams = this.effectsData[this.currentEffect].params

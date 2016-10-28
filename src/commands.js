@@ -27,6 +27,10 @@ class Commands extends EventEmitter {
 			return false
 		})
 
+		Mousetrap.bind('f', () => {
+			this.emit('step-forward')
+		})
+
 
 	}
 
@@ -36,7 +40,7 @@ class Commands extends EventEmitter {
 	}
 
 	_validateImageAndEmit(eventName, files) {
-		if (files.length == 1 && files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+		if (files.length == 1 && files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) {
 			this.emit(eventName, files[0])
 		} else {
 			console.log('failed')
